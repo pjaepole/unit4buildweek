@@ -1,5 +1,6 @@
 const express= require('express')
-
+const {checkUnTakenRegister,
+        providedUnPw}=require('./users-middleware')
 const Users = require('./users-model')
 const router = express.Router()
 
@@ -10,7 +11,8 @@ router.get('/',(req,res,next)=>{
     })
     .catch(next)
 })
-router.post('/', (req, res, next)=>{
+
+router.post('/', providedUnPw,checkUnTakenRegister,(req, res, next)=>{
     const UserData=req.body
     Users.register(UserData)
         .then(newUser=>{

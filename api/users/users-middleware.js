@@ -14,16 +14,30 @@ const checkUnTakenRegister = async (req, res, next) => {
       if(!user){
         next()
       } else {
-        res.status(403).json({message:"username taken"})
+        res.status(403).json({message:"Username is already taken"})
       }
     }
     catch(err){
       next(err)
     }
-  
   }
 
+  const checkUnExistLogin = async (req, res, next) => {
+    try{
+      const user=await Users.findBy({username: req.body.username})
+      if(user){
+        req.user=user
+        next()
+      } else {
+        res.status(401).json({message:"Invalid Username or Password"})
+      }
+    }
+    catch(err){
+      next(err)
+    }
+  }
   module.exports = {
       providedUnPw,
-      checkUnTakenRegister
+      checkUnTakenRegister,
+      checkUnExistLogin
   }

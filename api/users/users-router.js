@@ -3,7 +3,7 @@ const {checkUnTakenRegister,
         providedUnPw}=require('./users-middleware')
 const Users = require('./users-model')
 const router = express.Router()
-
+const bcrypt=require('bcryptjs')
 router.get('/',(req,res,next)=>{
     Users.getUsers()
     .then(users=>{
@@ -13,8 +13,9 @@ router.get('/',(req,res,next)=>{
 })
 
 router.post('/', providedUnPw,checkUnTakenRegister,(req, res, next)=>{
-    const UserData=req.body
-    Users.register(UserData)
+    const {username,password}=req.body
+    const hash=bcrypt.hashSync(password,8)
+    Users.register({username,password:hash})
         .then(newUser=>{
             res.status(201).json(newUser)
         })

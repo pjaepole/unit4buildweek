@@ -7,7 +7,7 @@ router.post('/:user_id/items', (req, res, next)=>{
     const {user_id}= req.params
     Items.addItem(user_id,item)
         .then(allItemsByUser=>{
-            res.status(201).json({message:"this user have items listed below",allItemsByUser})
+            res.status(201).json({message:"this user have items listed below",addedItem:allItemsByUser[0],allItemsByUser})
         })
         .catch(next)
 })

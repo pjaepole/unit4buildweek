@@ -10,7 +10,7 @@ function addItem(user_id, item){
         return db('items')
         .join('users', 'users.user_id','items.user_id')
         .select('item_id','item_name','item_description','item_price','users.username')
-        .orderBy('item_name')
+        .orderBy('item_id','desc')
         .where('users.user_id',user_id)
     })
 }

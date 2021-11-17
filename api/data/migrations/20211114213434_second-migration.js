@@ -4,7 +4,7 @@ exports.up = async (knex)=> {
       table.increments('item_id')
       table.string('item_name', 200).notNullable().unique()
       table.string('item_description', 200)
-      table.decimal('item_price',8,2).notNullable().unsigned()
+      table.decimal('item_price',8,2).notNullable()
       table.integer('user_id')
         
         .references('user_id')

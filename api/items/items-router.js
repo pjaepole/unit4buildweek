@@ -38,7 +38,7 @@ router.delete('/deleteitem/:item_id', (req, res, next)=>{
     Items.removeItem(item_id)
     .then(item=>{
         if(item){
-            res.json({message:`item_id:${item_id} is removed`, removed:item})
+            res.json({message:`item_id ${item_id} is removed`, removed:item})
         }
         else{
             res.status(404).json({message:"Could not find any item with provided item_id"})

@@ -1,5 +1,9 @@
 const db = require('../data/db-config')
 
+function finditemfortheuser(user_id){
+    return db('items').where({user_id})
+}
+
 function findBy(filter) {
     return db('items').where(filter).first()
   }
@@ -28,10 +32,23 @@ async function removeItem(item_id){
       
 }
 
+function updateItem(changes,item_id) {
+    return db('items')
+      .where({ item_id })
+      .update(changes)
+    //   .then(result => {
+    //     return result
+    //   })
+      .then(count => {
+        return findBy({item_id})
+      })
+  }
 module.exports={
     addItem,
     removeItem,
-    findBy 
+    findBy,
+    finditemfortheuser,
+    updateItem
 }
 
 

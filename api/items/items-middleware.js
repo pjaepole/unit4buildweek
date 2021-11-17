@@ -14,7 +14,22 @@ const checkItemExist = async (req,res,next)=>{
         next(err)
     }
 }
-
+const checkIfTryingToChangeItemIdorUserId= (req,res,next)=>{
+    if(req.body.item_id||req.body.user_id){
+        res.status(422).json({message:"you can not change id"})
+    } else {
+        next()
+    }
+}
+const checkifPriceisbelowzero=(req,res,next)=>{
+    if(req.body.item_price<0){
+        res.status(422).json({message:"price have to be more than 0"})
+    } else {
+        next()
+    }
+}
 module.exports={
-    checkItemExist
+    checkItemExist,
+    checkIfTryingToChangeItemIdorUserId,
+    checkifPriceisbelowzero
 }

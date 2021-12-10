@@ -1,3 +1,46 @@
+https://marketplacelambda.herokuapp.com/api/users/
+[get] request to this url returns all user's username in the database
+
+https://marketplacelambda.herokuapp.com/api/users/register
+[post] request to this url registers new user to the database,
+need
+{ username:"randomusername",
+ password:"randompassword" }
+(when making post request user_id, item_id is automatically assigned by the backend so do not put it in the request body)
+
+https://marketplacelambda.herokuapp.com/api/users/login
+[post] request to this url logs in user,
+need
+{ username:"randomusername",
+ password:"randompassword" }
+should receive, user_id, username, password(hashed you learn about it in unit 4, security reason it encrypts the password)
+
+https://marketplacelambda.herokuapp.com/api/shelf/
+[get] request to this url returns all the items in the database, no need for log in
+
+https://marketplacelambda.herokuapp.com/api/owner/:user_id/items
+[post] request will add item under user who have (user_id).
+{
+    "item_name":"required, doesn't accept item_name that already exist in database",
+    "item_price":"accepts only number bigger than 0, or will throw error",
+    "item_description":"not required"
+}
+for example when making request use template literal( `  `  backticks) to grab user_id from local storage
+axiosWithAuth.post(`https://marketplacelambda.herokuapp.com/api/owner/${localStorage.getItem('user_id')}/items`
+
+https://marketplacelambda.herokuapp.com/api/owner/deleteitem/:item_id
+[delete]request to this url with item_id will delete that item
+
+https://marketplacelambda.herokuapp.com/api/owner/itemsforuser/user_id
+[get]request to this url will return only the items owned by user with user_id(will need a log in and later will need authentication)
+
+https://marketplacelambda.herokuapp.com/api/owner/updateitem/:item_id
+[put] request to this url will update the item with item_id,
+item_price have to bigger than 0, no negative number is accepted
+i set validation so you can not change the item_id or user_id for the item
+
+
+
 # Build Week Scaffolding for Node and PostgreSQL
 
 ## Video Tutorial
